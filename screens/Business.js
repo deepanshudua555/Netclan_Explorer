@@ -1,12 +1,133 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
+import React from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Card from '../components/Card';
 
 const Business = () => {
+  const data = [
+    {
+      name: 'Deepanshu Dua',
+      friendshipStatus: 'Invite',
+      place: 'New Delhi',
+      role: 'Student',
+      distance: '100-200',
+      statusBar: 50,
+      likes: 'Coffee Business Friendship',
+      status: 'Hi community I am open to new connection "😊"',
+      _id: '00001',
+      
+    },
+    {
+      name: 'Harshel Patel',
+      friendshipStatus: 'invite',
+      place: 'Assam',
+      role: 'Steel business',
+      distance: '10-20',
+      statusBar: 30,
+      likes: 'Coffee Business Dinning',
+      status:
+        'Hi community I am open to new connection,I am a student of Btech IT at BVCOE.I have 2+ years of experience in Frontend development. ',
+      _id: '00002',
+    },
+    {
+      name: 'Kiko',
+      friendshipStatus: 'invite',
+      place: 'Assam',
+      role: 'Software Engineer',
+      distance: '10-20',
+      statusBar: 30,
+      likes: 'Coffee Business Dinning',
+      status:
+        'Hi community I am open to new connection,I am a student of Btech IT at BVCOE.I have 2+ years of experience in Frontend development. ',
+      _id: '00003',
+    },
+    
+  ];
   return (
-    <View>
-      <Text>Business</Text>
+    <View
+      style={{
+        backgroundColor: '#fff',
+        flex: 1,
+        // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+      }}>
+      <View style={{flexDirection: 'row', width: '85%', alignItems: 'center'}}>
+        <Icon style={styles.icon} name="search" size={14} color="#Ccd1D7" />
+        <TextInput
+          style={styles.numberInput}
+          selectionColor="#CBD3D9"
+          placeholder="search"
+        />
+        <Icon name="options-outline" size={28} color="#0e2e43" />
+      </View>
+      <SafeAreaView style={{flex: 1}}>
+        <ScrollView style={{flex: 1}}>
+          <View style={{marginBottom: 140}}>
+            {data.map(item => (
+              <Card
+                key={item._id}
+                name={item.name}
+                friendshipStatus={item.friendshipStatus}
+                place={item.place}
+                role={item.role}
+                distance={item.distance}
+                statusBar={item.statusBar}
+                likes={item.likes}
+                status={item.status}
+                dataId={item._id}
+              />
+            ))}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </View>
-  )
-}
+  );
+};
 
-export default Business
+export default Business;
+
+const styles = StyleSheet.create({
+  input: {
+    borderWidth: 2,
+    borderColor: 'red',
+    borderRadius: 50,
+    height: '5%',
+    // flex:1,
+  },
+  numberInput: {
+    height: 30,
+    width: '90%',
+    fontSize: 14,
+    borderColor: '#CAD2D7',
+    borderWidth: 1,
+    color: '#CBD3D9',
+    marginVertical: 20,
+    marginHorizontal: 20,
+    borderRadius: 19,
+    paddingLeft: 45,
+    paddingVertical: -15,
+  },
+  icon: {
+    position: 'absolute',
+    left: 40,
+  },
+  cardContainer: {
+    height: '40%',
+    width: '85%',
+    alignSelf: 'center',
+    marginLeft: 50,
+    marginRight: 15,
+    borderRadius: 25,
+    // borderWidth:2,
+    backgroundColor: '#fff',
+    elevation: 5,
+    marginVertical: 10,
+    // shadowRadius:25
+  },
+});

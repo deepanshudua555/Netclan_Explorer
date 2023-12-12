@@ -1,17 +1,35 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {View, Text, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Refine from './screens/Refine';
 import Explore from './screens/Explore ';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconn from 'react-native-vector-icons/MaterialCommunityIcons';
+import Iconnn from 'react-native-vector-icons/Feather';
+import Iconnnn from 'react-native-vector-icons/MaterialIcons';
+import Network from './screens/Network';
+import Chat from './screens/Chat';
+import Contacts from './screens/Contacts';
+import Groups from './screens/Groups';
+import {useNavigation} from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const CustomHeader = () => {
+  const navigation = useNavigation();
+  const handleNavigate = () => {
+    navigation.navigate('refine');
+  };
   return (
     <View
       style={{
@@ -22,13 +40,15 @@ const CustomHeader = () => {
         alignItems: 'center',
         // marginTop:10
       }}>
-      <Icon name="reorder-three-outline" size={40} color="#fff" />
+      <TouchableOpacity>
+        <Icon name="reorder-three-outline" size={40} color="#fff" />
+      </TouchableOpacity>
       <View>
         <Text
           style={{
             color: 'white',
             fontSize: 14,
-            fontWeight: "600",
+            fontWeight: '600',
             marginLeft: -20,
             marginTop: 10,
           }}>
@@ -54,61 +74,119 @@ const CustomHeader = () => {
           <Text style={{color: 'white', fontSize: 12}}>Nangloi, New Delhi</Text>
         </View>
       </View>
-      <View>
+      <TouchableOpacity onPress={handleNavigate}>
         <Iconn name="format-list-checks" size={35} color="#fff" />
         <Text style={{color: 'white', fontSize: 12}}>Refine </Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: '#0e2e43', // Change this to your desired active color
+        inactiveTintColor: '#74858F', // Change this to your desired inactive color
+      }}
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#0e2e43',
+        },
+        // headerTitleAlign: 'center',
+        headerTitle: () => <CustomHeader />,
+        headerTintColor: 'white',
+        // headerStatusBarHeight:10
+      }}>
+      <Tab.Screen
+        name="Explore"
+        component={Explore}
+        options={{
+          title: 'Explore',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: '#0e2e43',
+          },
+          tabBarIcon: ({color, size}) => (
+            <Icon name="eye" color={color} size={size} />
+          ),
+          // headerShown: false
+        }}
+      />
+      <Tab.Screen
+        name="Network"
+        component={Network}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="git-network-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon
+              name="chatbubble-ellipses-outline"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Contacts"
+        component={Contacts}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Iconn name="contacts-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Groups"
+        component={Groups}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Iconnn name="hash" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 const App = () => {
   return (
     <>
-      {/* <NavigationContainer>
-        <Stack.Navigator initialRouteName={'explore'}>
+      <StatusBar backgroundColor="#0e2e43" />
+
+      <NavigationContainer independent={true}>
+        {/* <Tab.Navigator> */}
+        <Stack.Navigator initialRouteName={'expore'}>
           <Stack.Screen
             name="explore"
-            component={Explore}
+            component={TabNavigator}
             options={{headerShown: false}}
           />
           <Stack.Screen
             name="refine"
             component={Refine}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer> */}
-      <StatusBar backgroundColor="#0e2e43" />
-      <NavigationContainer independent={true}>
-        {/* <Tab.Navigator> */}
-        <Tab.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: '#0e2e43',
-            },
-            // headerTitleAlign: 'center',
-            headerTitle: () => <CustomHeader />,
-            headerTintColor: 'white',
-            // headerStatusBarHeight:10
-          }}>
-          <Tab.Screen
-            name="Explore"
-            component={Explore}
             options={{
-              title: 'Explore',
-              headerTintColor: 'white',
               headerStyle: {
                 backgroundColor: '#0e2e43',
               },
-              // headerShown: false
+              headerTitle: 'Refine',
+              headerTitleStyle:{
+                color:"#fff"
+              },
+              headerTintColor: '#fff',
+              
+              
             }}
           />
-          <Tab.Screen
-            name="Refine"
-            component={Refine}
-            options={{headerShown: false}}
-          />
-        </Tab.Navigator>
+        </Stack.Navigator>
       </NavigationContainer>
     </>
   );
